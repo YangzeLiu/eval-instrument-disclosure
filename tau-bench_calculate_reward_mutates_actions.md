@@ -23,6 +23,6 @@ print([a.name for a in env.actions])   # ['get_user_details', 'book_reservation'
 print(h0 != env.get_data_hash())       # True  <- data left in the gold state
 ```
 
-`repro/hal/goldleak.py` in `repro_eval_instrument_2026-09-03.zip` (attached, and mirrored at https://github.com/YangzeLiu/HAL) measures the extent on the public traces.
+`repro/hal/goldleak.py` in `repro_eval_instrument_2026-09-03.zip` (attached, and mirrored at https://github.com/YangzeLiu/eval-instrument-disclosure) measures the extent on the public traces.
 
 **Suggested fix.** Replay the gold actions through a private helper that does not touch `self.actions` (or snapshot and restore `self.actions` and `self.data` around the replay, which is what #89 does for `self.data`). This cannot change any score: the only reward path that reads `self.actions` is the output check at L144-161, which scans for `respond` actions, and no airline (0 of 50) or retail (0 of 115) gold task contains a `respond` action, so the injected suffix can never satisfy or break an output check.
