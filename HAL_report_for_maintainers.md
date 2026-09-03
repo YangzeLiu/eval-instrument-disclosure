@@ -75,6 +75,7 @@ Attached: `repro_eval_instrument_2026-09-03.zip` (24 files, no credentials, no p
 
 Thank you for publishing the archives and the harness in the first place. None of this would have been checkable otherwise, which is the point we would like to make alongside the findings.
 
-Best regards,
-Yangze Liu
-B.S. in Computer Science, UIUC (2025); research assistant, Shandong University
+Best regards,  
+Yangze Liu  
+B.S. in Computer Science + Philosophy, UIUC, 2025  
+Research Assistant, Shandong University
