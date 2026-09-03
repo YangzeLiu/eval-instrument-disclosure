@@ -1,4 +1,4 @@
-**Subject:** Three reproducible measurement issues in HAL's published costs, TAU-bench Generalist scores, and trace archives
+**Subject:** Three reproducible measurement issues in HAL: cost double counting, ungraded Generalist episodes on TAU-bench Airline, grader-injected actions in the trace archives
 
 Dear Sayash and Arvind,
 
