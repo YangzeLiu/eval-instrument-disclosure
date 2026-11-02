@@ -1,0 +1,102 @@
+
+## Record categories (all 2334 records)
+| scaffold | records | GroupA | injected block (any) | suffix only | interior only | both | graded by reward only (no block) | GroupB graded by trigger | ungraded | agent-issued gold-equal blocks (records) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| GEN | 746 | 613 | 314 | 149 | 73 | 92 | 50 | 23 | 359 | 165 |
+| TOOLCALL | 594 | 486 | 478 | 478 | 0 | 0 | 69 | 38 | 9 | 147 |
+| FEWSHOT | 994 | 815 | 804 | 804 | 0 | 0 | 126 | 49 | 15 | 220 |
+
+Gold-equal occurrences, P label x S label:
+   ('FEWSHOT', 'agent', 'agent') 227
+   ('FEWSHOT', 'injected', 'injected') 804
+   ('GEN', 'agent_or_ambiguous', 'agent') 177
+   ('GEN', 'agent_or_ambiguous', 'injected') 7
+   ('GEN', 'injected', 'injected') 422
+   ('TOOLCALL', 'agent', 'agent') 157
+   ('TOOLCALL', 'injected', 'injected') 478
+unclassified occurrences: 0
+
+## Graded fraction, Group A (old = FU11 suffix rule, new = provenance)
+| scaffold | n | old graded | new graded | old graded & new ungraded | old ungraded & new graded |
+|---|---|---|---|---|---|
+| GEN | 613 | 39.3% | 51.2% | 0 | 73 |
+| TOOLCALL | 486 | 98.4% | 98.4% | 0 | 0 |
+| FEWSHOT | 815 | 98.7% | 98.7% | 0 | 0 |
+Group B (transfer-only/empty gold), graded = a done-trigger occurred: {'GEN': '54.9% of 133', 'TOOLCALL': '99.1% of 108', 'FEWSHOT': '97.8% of 179'}
+
+## Pooled accuracy, Group A
+| scaffold | n | published | corrected old (FU11) | corrected new | new, embedded gold | new, alias-fixed replay |
+|---|---|---|---|---|---|---|
+| GEN | 613 | 0.300 | 0.468 | 0.426 | 0.426 | 0.426 |
+| TOOLCALL | 486 | 0.409 | 0.414 | 0.414 | 0.414 | 0.414 |
+| FEWSHOT | 815 | 0.442 | 0.442 | 0.442 | 0.442 | 0.442 |
+GEN ungraded (new) n=299, offline pass rate 0.258
+
+## Per model, Group A (published / corrected old / corrected new)
+| model | GEN n | GEN pub | GEN old | GEN new | TC n | TC pub | TC old | TC new | FS pub | FS new |
+|---|---|---|---|---|---|---|---|---|---|---|
+| claude-3.7-sonnet | 81 | 0.519 | 0.630 | 0.605 | 79 | 0.481 | 0.494 | 0.494 | 0.463 | 0.463 |
+| claude-opus-4 | 82 | 0.415 | 0.537 | 0.500 | - | - | - | - | 0.573 | 0.573 |
+| claude-opus-4.1 | 82 | 0.366 | 0.524 | 0.500 | 82 | 0.512 | 0.512 | 0.512 | 0.549 | 0.549 |
+| deepseek-r1 | 41 | 0.098 | 0.341 | 0.244 | 39 | 0.308 | 0.308 | 0.308 | 0.244 | 0.244 |
+| deepseek-v3 | 41 | 0.171 | 0.366 | 0.366 | 40 | 0.375 | 0.375 | 0.375 | 0.220 | 0.220 |
+| gemini-2.0-flash | 41 | 0.195 | 0.415 | 0.317 | 41 | 0.220 | 0.220 | 0.220 | 0.317 | 0.317 |
+| gpt-4.1 | 41 | 0.195 | 0.341 | 0.268 | 41 | 0.268 | 0.293 | 0.293 | 0.512 | 0.512 |
+| gpt-4o | - | - | - | - | - | - | - | - | 0.341 | 0.341 |
+| gpt-5 | 82 | 0.341 | 0.476 | 0.427 | 41 | 0.439 | 0.439 | 0.439 | 0.500 | 0.500 |
+| o3 | 40 | 0.200 | 0.425 | 0.375 | 41 | 0.488 | 0.488 | 0.488 | 0.462 | 0.462 |
+| o3-mini | - | - | - | - | - | - | - | - | 0.374 | 0.374 |
+| o4-mini | 82 | 0.183 | 0.402 | 0.378 | 82 | 0.415 | 0.415 | 0.415 | 0.494 | 0.494 |
+
+## Generalist vs Tool-Calling per model (PRIMARY comparison; gap = GEN - TC)
+| model | published gap | old corrected gap | new corrected gap | new gap, embedded gold | sign pub -> new |
+|---|---|---|---|---|---|
+| claude-3.7-sonnet | +0.038 | +0.136 | +0.111 | +0.111 | + -> + |
+| claude-opus-4.1 | -0.146 | +0.012 | -0.012 | -0.012 | - -> - |
+| deepseek-r1 | -0.210 | +0.034 | -0.064 | -0.064 | - -> - |
+| deepseek-v3 | -0.204 | -0.009 | -0.009 | -0.009 | - -> - |
+| gemini-2.0-flash | -0.024 | +0.195 | +0.098 | +0.098 | - -> + |
+| gpt-4.1 | -0.073 | +0.049 | -0.024 | -0.024 | - -> - |
+| gpt-5 | -0.098 | +0.037 | -0.012 | -0.012 | - -> - |
+| o3 | -0.288 | -0.063 | -0.113 | -0.113 | - -> - |
+| o4-mini | -0.232 | -0.012 | -0.037 | -0.037 | - -> - |
+{'models': 9, 'pub_below': 8, 'old_below': 3, 'new_below': 7, 'new_tie': 0, 'new_above': 2, 'flip_pub_new': 1, 'flip_pub_old': 5, 'flip_pub_new_emb': 1}
+pooled over TC-shared models pub: GEN 0.282 (n=531) TC 0.409 (n=486) gap -0.127
+pooled over TC-shared models old_c: GEN 0.458 (n=531) TC 0.414 (n=486) gap +0.044
+pooled over TC-shared models new_c: GEN 0.414 (n=531) TC 0.414 (n=486) gap +0.001
+all-scaffold order (secondary, includes withdrawn Few-Shot), models with GEN and >=1 other: 10; GEN first 2, last 6
+
+## Write-gold subset (30 tasks)
+| scaffold | n | graded old | graded new | published | corrected old | corrected new |
+|---|---|---|---|---|---|---|
+| GEN | 448 | 41.3% | 51.8% | 0.275 | 0.384 | 0.326 |
+| TOOLCALL | 354 | 97.7% | 97.7% | 0.331 | 0.336 | 0.336 |
+| FEWSHOT | 596 | 98.2% | 98.2% | 0.351 | 0.351 | 0.351 |
+GEN old: ungraded-but-passing on write tasks 57, of which the agent issued >=1 write itself: 24
+GEN new: ungraded-but-passing on write tasks 23, of which the agent issued >=1 write itself: 23
+GEN new: ungraded-but-passing, Group A: 77 (write-gold 23, read-only gold 54)
+
+## Finding 3 numbers
+records with an injected gold block anywhere: 1596 / 2334 = 68.4% ; of Group A 1596 / 1914 = 83.4%
+  suffix only 1431, interior only 73, both 92
+  records with >1 injected copy: 100
+  FU11 suffix rule flagged 1523 records
+injected actions per record (all records): 2.72 of 16.82 recorded = 16.2%
+records with agent_tool_calls == 0 that nevertheless show an injected gold block: 58 {'FEWSHOT': 55, 'TOOLCALL': 3}
+records with agent_env_calls == 0 that nevertheless show an injected gold block: 58 {'FEWSHOT': 55, 'TOOLCALL': 3}
+replay agreement with recorded reward, gold >= 2 non-terminal actions (n=1259):
+  verbatim taken_actions 0.703 | FU11 stripped (suffix rule) 0.914 | new stripped 0.917 | new stripped, embedded gold 0.940 | new stripped, alias-fixed 0.917
+    GEN n=403 verbatim 0.730 fu11 0.799 new 0.806
+    TOOLCALL n=321 verbatim 0.713 fu11 0.963 new 0.963
+    FEWSHOT n=535 verbatim 0.677 fu11 0.972 new 0.972
+faithful re-enactment (grader re-run at each recorded done-trigger) vs recorded reward, graded records n=1951: pinned 0.979 | alias-fixed 0.979 | embedded gold 1.000
+    GEN n=387 faithful 0.990 fixed 0.990 emb 1.000
+    TOOLCALL n=585 faithful 0.974 fixed 0.974 emb 1.000
+    FEWSHOT n=979 faithful 0.979 fixed 0.979 emb 1.000
+graded-record offline replay of agent-only actions vs recorded (validation as in FU11):
+    GEN n=314 new stripped 0.838 | old (FU11 graded set) 0.876
+    TOOLCALL n=478 new stripped 0.969 | old (FU11 graded set) 0.969
+    FEWSHOT n=804 new stripped 0.974 | old (FU11 graded set) 0.974
+embedded gold != pinned gold: 139 records; {'FEWSHOT': 59, 'GEN': 45, 'TOOLCALL': 35}
+recorded reward > 0 without any injected block or trigger: 0
+replay errors: 0

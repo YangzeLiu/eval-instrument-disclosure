@@ -26,6 +26,8 @@ Two existing statements are adjacent but do not cover this. PR #114 fixed a cach
 
 ## Item 2. The HAL Generalist is graded in only 39% of TAU-bench Airline episodes
 
+> **Correction (2026-11-01).** The numbers in this item were overstated. Our check found the injected gold only when it was a suffix of `taken_actions`, and HAL's notice of 2026-10-05 shows it can sit in the interior. Re-classified from the agent's own outputs, the Generalist is graded in 51.2% of these episodes (not 39.3%), its corrected pooled accuracy is 0.426 (not 0.468), and over the nine models it shares with Tool-Calling it moves from 0.282 to 0.414 against Tool-Calling's 0.414. The per-model reordering below does not hold: against Tool-Calling one model of nine changes sign. The original text is kept for the record. Details, scripts and the per-record table: [`corrections/2026-11-01/`](corrections/2026-11-01/README.md).
+
 In tau-bench, `calculate_reward` runs only inside the `if done:` branch of `Env.step` (`tau_bench/envs/base.py:114-115`), and `done` becomes true in exactly two places: a `respond` action is routed to the user simulator and the reply contains `###STOP###` (L96-99), or the agent calls a terminating tool (L108-109; on airline only `transfer_to_human_agents`). The Generalist (`agents/hal_generalist_agent/main.py`) runs the smolagents CodeAgent loop to completion, issues one closing `Action(name="respond", ...)` (L2695-2696), and exits. That closing message is unsolicited, the simulator usually does not answer it with `###STOP###`, and no further step follows, so grading never runs and the record is written with reward 0. The action type is not the issue: the Generalist's own `ask_user` tool (L2633-2651) steps `respond` actions mid-episode and reads `observation.done`. The final turn is.
 
 Measured on 47 airline runs and 2,334 well-formed task records (16 of 2,350 entries hold a malformed `task` field and are dropped):
@@ -42,6 +44,8 @@ Two notes on our method, so the numbers can be checked rather than trusted. Firs
 Separately, and not a bug: the Generalist receives the policy document as a file (`wiki.md`, L2655-2657, instruction at L2690) while the task-specific scaffolds inject `wiki` into the system prompt. The Generalist runs with `max_steps=200` (L2683), which Appendix A8 states; the scaffolds keep the fork default `max_num_steps=30`, which is not stated, and neither is the asymmetry, where the scaffolds are compared.
 
 ## Item 3. Public trace archives record grader-injected gold actions as agent `taken_actions`
+
+> **Correction (2026-11-01).** Counting interior blocks as well, grader-injected gold appears in 1,596 of the 2,334 records (68.4%), not 1,523 (65.3%). The figure of 3.72 of 19.95 injected actions per affected record was not reproduced; the new classification gives 2.72 of 16.82 over all records. Strip injected gold wherever it appears in the list, not only as a suffix. See [`corrections/2026-11-01/`](corrections/2026-11-01/README.md).
 
 tau-bench's `Env.calculate_reward` replays the gold sequence through `self.step`, which appends each gold action to `self.actions` (`base.py:91`, `:134-136`). HAL serialises `isolated_env.actions` as `taken_actions` at six sites: `taubench_tool_calling/tool_calling.py:810`, `taubench_few_shot/few_shot.py:181`, `taubench_react/react.py:103`, `taubench_example_agent/main.py:52`, `hal_generalist_agent/main.py:2708-2710`, and `openai_codex_agent/main.py:1235`.
 
